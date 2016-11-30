@@ -33,18 +33,42 @@ RSpec.describe CatchesController, type: :controller do
     context "with valid params" do
       it "creates a new Catch" do
         expect {
-          post :create, params: {catch: valid_attributes}
+          post :create, params: { catch: valid_attributes }
         }.to change(Catch, :count).by(1)
       end
 
       it "responses 201 code" do
-        post :create, params: {catch: valid_attributes}
+        post :create, params: { catch: valid_attributes }
         expect(response.code).to eq("201")
       end
 
       it "returns created catch" do
-        post :create, params: {catch: valid_attributes}
+        post :create, params: { catch: valid_attributes }
         expect(json_response).to include("angler_name" => "Luke")
+      end
+
+      context "with photo" do
+        let(:photo_base64_string) do
+          file = File.join(Rails.root, "spec", "support", "photo.jpg")
+          File.read(file)
+        end
+
+        let(:photo) do
+          {
+            photo: photo_base64_string
+          }
+        end
+
+        after do
+          Catch.destroy_all # to remove files from public folder
+        end
+
+        it "creates a new Catch with photo" do
+          post :create, params: { catch: valid_attributes.merge(photo) }
+          last_catch = Catch.last
+
+          expect(last_catch.photo).not_to be_nil
+        end
       end
     end
 
