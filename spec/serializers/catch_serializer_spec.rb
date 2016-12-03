@@ -16,6 +16,6 @@ describe CatchSerializer do
   subject(:serializer) { described_class.new(catch) }
 
   it 'serializes correctly' do
-    expect(serializer.as_json).to eq expected
+    expect(serializer.as_json).to eq expected.merge(photo_url: "/photos/original/missing.png")
   end
 end
