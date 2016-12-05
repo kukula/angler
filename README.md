@@ -1,24 +1,7 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+I want to mention that in a perfect world I wouldn't do image resizing on an app server.
 
-Things you may want to cover:
+I would rather upload pics directly to S3. http://stackoverflow.com/questions/17585881/amazon-s3-direct-file-upload-from-client-browser-private-key-disclosure
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+And then use AWS lambda for image resizing. http://blog.kaliloudiaby.com/index.php/serverless-image-resizing-aws-lambda-and-aws-s3/
